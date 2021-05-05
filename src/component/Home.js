@@ -1,5 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text, ImageBackground } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome';
+import { Input, Button } from 'react-native-elements';
 
 function Home(props) {
      return (
@@ -12,8 +14,43 @@ function Home(props) {
                     style={styles.image}
                />
                <View style={styles.title}>
-                    <Text styles={styles.title}> PPlan </Text>
+                    <Text style={styles.titles}>PPlan</Text>
                </View>
+               <View style={styles.form}>
+                    <Input
+                         leftIcon={
+                              <Icon name="phone" size={24} color="#0085E6" />
+                         }
+                         keyboardType="numeric"
+                         placeholder={'Phone Number'}
+                    />
+                    <Input
+                         leftIcon={
+                              <Icon name="lock" size={24} color="#0085E6" />
+                         }
+                         placeholder={'Password'}
+                         secureTextEntry={true}
+                    />
+               </View>
+               <Button
+                    title="เข้าสู่ระบบ"
+                    containerStyle={{
+                         marginLeft: '22%',
+                         width: '55%',
+                    }}
+               />
+               <Button
+                    title="สมัครสมาชิก"
+                    containerStyle={{
+                         marginTop: '1%',
+                         marginLeft: '22%',
+                         width: '55%',
+                    }}
+                    buttonStyle={{
+                         backgroundColor: '#549a00',
+                    }}
+                    onPress={() => navigation.navigate('Resgister')}
+               />
           </View>
      );
 }
@@ -21,12 +58,22 @@ function Home(props) {
 const styles = StyleSheet.create({
      container: {
           flex: 1,
-          alignItems: 'center',
-          justifyContent: 'center',
      },
      title: {
-          marginTop: '30%',
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginTop: '20%',
           width: '100%',
+     },
+     titles: {
+          fontSize: 40,
+          fontWeight: '500',
+     },
+     form: {
+          alignItems: 'center',
+          justifyContent: 'center',
+          marginLeft: '20%',
+          width: '60%',
      },
      image: {
           width: '100%',

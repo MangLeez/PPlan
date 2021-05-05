@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { View, Text, Picker, StyleSheet, Button } from 'react-native';
 
-const SingIn = () => {
+const Resgister = () => {
      return (
           <View style={styles.container}>
-               <Text>Price </Text>
+               <Text>Resgister </Text>
           </View>
      );
 };
@@ -17,4 +17,4 @@ const styles = StyleSheet.create({
      },
 });
 
-export default SingIn;
+export default Resgister;

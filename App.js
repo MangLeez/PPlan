@@ -2,14 +2,13 @@ import { StatusBar } from 'expo-status-bar';
 import 'react-native-gesture-handler';
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 
 import Header from './src/header/Header';
 import SingIn from './src/component/SingIn';
 import SingUp from './src/component/SingUp';
-
-const Stack = createStackNavigator();
+import Resgister from './src/component/Resgister';
 
 export default function App() {
      return (
@@ -19,10 +18,12 @@ export default function App() {
      );
 }
 
+const Stack = createStackNavigator();
+
 function MyStack() {
      return (
           <Stack.Navigator>
-               <Stack.Screen name="SingUp" component={SingUp} />
+               <Stack.Screen name="Resgister" component={Resgister} />
                <Stack.Screen name="SingIn" component={SingIn} />
           </Stack.Navigator>
      );

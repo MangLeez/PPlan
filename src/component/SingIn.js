@@ -18,20 +18,6 @@ const SingIn = () => {
                     <Picker.Item label="JavaScript" value="js" />
                     <Picker.Item label="Java" value="java" />
                     <Picker.Item label="JavaScript" value="js" />
-                    <Picker.Item label="Java" value="java" />
-                    <Picker.Item label="JavaScript" value="js" />
-                    <Picker.Item label="Java" value="java" />
-                    <Picker.Item label="JavaScript" value="js" />
-                    <Picker.Item label="Java" value="java" />
-                    <Picker.Item label="JavaScript" value="js" />
-                    <Picker.Item label="Java" value="java" />
-                    <Picker.Item label="JavaScript" value="js" />
-                    <Picker.Item label="Java" value="java" />
-                    <Picker.Item label="JavaScript" value="js" />
-                    <Picker.Item label="Java" value="java" />
-                    <Picker.Item label="JavaScript" value="js" />
-                    <Picker.Item label="Java" value="java" />
-                    <Picker.Item label="JavaScript" value="js" />
                </Picker>
                <Button
                     onPress={() => navigation.navigate('SingUp')}
