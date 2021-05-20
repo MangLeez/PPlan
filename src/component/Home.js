@@ -2,14 +2,15 @@ import React from 'react';
 import { StyleSheet, View, Text, ImageBackground } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import { Input, Button } from 'react-native-elements';
+import { useNavigation } from '@react-navigation/native';
 
-function Home(props) {
+function Home() {
+     const navigation = useNavigation();
      return (
           <View style={styles.container}>
                <ImageBackground
                     source={{
-                         uri:
-                              'https://images.unsplash.com/photo-1535649900424-c09963c4fd8e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fGZhcm18ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
+                         uri: 'https://images.unsplash.com/photo-1535649900424-c09963c4fd8e?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fGZhcm18ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60',
                     }}
                     style={styles.image}
                />
@@ -54,6 +55,19 @@ function Home(props) {
           </View>
      );
 }
+
+const pre = () => {
+     var test_dataset = [
+          [0.9, 0.9, 0.9],
+          [1.1, 1.1, 1.1],
+          [1.1, 1.1, 1.2],
+          [1.2, 1.2, 1.2],
+     ];
+
+     var ans = knn.predict(test_dataset);
+
+     console.log(ans);
+};
 
 const styles = StyleSheet.create({
      container: {

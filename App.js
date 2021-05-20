@@ -1,5 +1,4 @@
 import { StatusBar } from 'expo-status-bar';
-import 'react-native-gesture-handler';
 import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
@@ -10,11 +9,11 @@ import SingIn from './src/component/SingIn';
 import SingUp from './src/component/SingUp';
 import Resgister from './src/component/Resgister';
 
-export default function App() {
+function App() {
      return (
-          <View style={styles.container}>
-               <Header />
-          </View>
+          <NavigationContainer>
+               <MyStack />
+          </NavigationContainer>
      );
 }
 
@@ -23,7 +22,18 @@ const Stack = createStackNavigator();
 function MyStack() {
      return (
           <Stack.Navigator>
-               <Stack.Screen name="Resgister" component={Resgister} />
+               <Stack.Screen
+                    name="Header"
+                    component={Header}
+                    options={{
+                         headerShown: false,
+                    }}
+               />
+               <Stack.Screen
+                    name="Resgister"
+                    component={Resgister}
+                    options={{ title: 'สมัครสมาชิก' }}
+               />
                <Stack.Screen name="SingIn" component={SingIn} />
           </Stack.Navigator>
      );
@@ -34,3 +44,5 @@ const styles = StyleSheet.create({
           flex: 1,
      },
 });
+
+export default App;

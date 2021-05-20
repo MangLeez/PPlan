@@ -3,10 +3,13 @@ import { BottomNavigation, Text } from 'react-native-paper';
 import Home from '../component/Home';
 import Price from '../component/Price';
 import SingIn from '../component/SingIn';
+import Predict from '../component/Predict';
 
 const HomeRoute = () => <Home />;
 
 const PriceRoute = () => <Price />;
+
+const PredictRoute = () => <Predict />;
 
 // const RecentsRoute = () => <Text>Lee</Text>;
 
@@ -23,6 +26,11 @@ const Header = () => {
                color: 'rgb(255, 204, 23)',
           },
           {
+               key: 'Predict',
+               title: 'Predict',
+               icon: 'sprout',
+          },
+          {
                key: 'News',
                title: 'News',
                icon: 'newspaper-variant-outline',
@@ -34,6 +42,7 @@ const Header = () => {
      const renderScene = BottomNavigation.SceneMap({
           Home: HomeRoute,
           Price: PriceRoute,
+          Predict: PredictRoute,
           News: RecentsRoute,
           recents: RecentsRoute,
      });
