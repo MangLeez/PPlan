@@ -2,8 +2,9 @@ import * as React from 'react';
 import { BottomNavigation, Text } from 'react-native-paper';
 import Home from '../component/Home';
 import Price from '../component/Price';
-import SingIn from '../component/SingIn';
+import News from '../component/News';
 import Predict from '../component/Predict';
+import Predict3 from '../component/Predict3';
 
 const HomeRoute = () => <Home />;
 
@@ -11,9 +12,9 @@ const PriceRoute = () => <Price />;
 
 const PredictRoute = () => <Predict />;
 
-// const RecentsRoute = () => <Text>Lee</Text>;
+const RecentsRoute = () => <Predict3 />;
 
-const RecentsRoute = () => <SingIn />;
+const NewsRoute = () => <News />;
 
 const Header = () => {
      const [index, setIndex] = React.useState(0);
@@ -43,7 +44,7 @@ const Header = () => {
           Home: HomeRoute,
           Price: PriceRoute,
           Predict: PredictRoute,
-          News: RecentsRoute,
+          News: NewsRoute,
           recents: RecentsRoute,
      });
 

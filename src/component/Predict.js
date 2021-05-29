@@ -1,25 +1,63 @@
 import React, { useState } from 'react';
-import { View, Text, Picker, StyleSheet, TouchableOpacity } from 'react-native';
+import {
+     View,
+     Text,
+     Picker,
+     StyleSheet,
+     TouchableOpacity,
+     ScrollView,
+} from 'react-native';
 import { Input, Button } from 'react-native-elements';
+import { Dialog, Portal } from 'react-native-paper';
 import RNPickerSelect from 'react-native-picker-select';
 import { Tooltip } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
 
 const Predict = () => {
+     const navigation = useNavigation();
      const [soil, setSoil] = useState('');
      const [sunray, setSunray] = useState('');
      const [climate, setClimate] = useState('');
      const [water, setWater] = useState('');
      const [month, setMonth] = useState('');
+     const [harvest, setHarvest] = useState('');
+     var plant = [];
+
+     const predict = async () => {
+          if (
+               soil === '' ||
+               sunray === '' ||
+               climate === '' ||
+               water === '' ||
+               month === '' ||
+               harvest === ''
+          ) {
+               alert('โปรดกรอกข้อมูล');
+          } else {
+               await fetch(
+                    `http://192.168.0.106:3032/predict/${soil}/${sunray}/${climate}/${water}/${month}/${harvest}`,
+                    {
+                         method: 'GET',
+                    },
+               )
+                    .then((res) => res.json())
+                    .then((json) => (plant = json));
+               navigation.navigate('Predict2', {
+                    name: plant,
+                    month: month,
+                    harvest: harvest,
+               });
+          }
+     };
 
      return (
           <View style={styles.container}>
                <View style={styles.picker}>
                     <Text style={{ fontSize: 20 }}>ดิน</Text>
                     <RNPickerSelect
-                         placeholder={{ label: 'เลือกชนิดของดิน', value: null }}
-                         onValueChange={(soil) => console.log('soil ' + soil)}
-                         // style={styles.pickerFM}
+                         placeholder={{ label: 'เลือกชนิดของดิน', value: '' }}
+                         onValueChange={(soil) => setSoil(soil)}
                          style={{ inputAndroid: { color: 'black' } }}
                          items={[
                               { label: 'ดินเหนียว', value: '1' },
@@ -35,9 +73,6 @@ const Predict = () => {
                               { label: 'ดินทรายปนดินร่วน', value: '11' },
                               { label: 'ดินทราย', value: '12' },
                          ]}
-                         // pickerProps={{
-                         //      style: { overflow: 'hidden' },
-                         // }}
                     />
                </View>
                <View style={{ paddingTop: 5 }} />
@@ -47,12 +82,9 @@ const Predict = () => {
                     <RNPickerSelect
                          placeholder={{
                               label: 'เลือกชนิดของแสงแดด',
-                              value: null,
+                              value: '',
                          }}
-                         onValueChange={(sunray) =>
-                              console.log('sunray ' + sunray)
-                         }
-                         // style={styles.pickerFM}
+                         onValueChange={(sunray) => setSunray(sunray)}
                          style={{ inputAndroid: { color: 'black' } }}
                          items={[
                               { label: 'แดดเต็มวัน', value: '1' },
@@ -60,9 +92,6 @@ const Predict = () => {
                               { label: 'แดดรำไร', value: '3' },
                               { label: 'ร่มสนิท', value: '4' },
                          ]}
-                         // pickerProps={{
-                         //      style: { overflow: 'hidden' },
-                         // }}
                     />
                </View>
                <View style={{ paddingTop: 5 }} />
@@ -89,12 +118,9 @@ const Predict = () => {
                     <RNPickerSelect
                          placeholder={{
                               label: 'เลือกชนิดของสภาพภูมิอากาศ',
-                              value: null,
+                              value: '',
                          }}
-                         onValueChange={(climate) =>
-                              console.log('climate ' + climate)
-                         }
-                         // style={styles.pickerFM}
+                         onValueChange={(climate) => setClimate(climate)}
                          style={{ inputAndroid: { color: 'black' } }}
                          items={[
                               { label: 'ภูมิอากาศร้อนชื้น', value: '1' },
@@ -102,29 +128,19 @@ const Predict = () => {
                               { label: 'ภูมิอากาศอบอุ่น', value: '3' },
                               { label: 'ภูมิอากาศหนาวเย็น', value: '4' },
                          ]}
-                         // pickerProps={{
-                         //      style: { overflow: 'hidden' },
-                         // }}
                     />
                </View>
                <View style={{ paddingTop: 5 }} />
                <View style={styles.picker}>
                     <Text style={{ fontSize: 20 }}>น้ำ</Text>
                     <RNPickerSelect
-                         placeholder={{ label: 'เลือกชนิดของน้ำ', value: null }}
-                         onValueChange={(water) =>
-                              console.log('water ' + water)
-                         }
-                         // style={styles.pickerFM}
+                         placeholder={{ label: 'เลือกชนิดของน้ำ', value: '' }}
+                         onValueChange={(water) => setWater(water)}
                          style={{ inputAndroid: { color: 'black' } }}
                          items={[
                               { label: 'น้ำจืด', value: '1' },
                               { label: 'น้ำกร่อย', value: '2' },
-                              { label: 'น้ำทะเล', value: '3' },
                          ]}
-                         // pickerProps={{
-                         //      style: { overflow: 'hidden' },
-                         // }}
                     />
                </View>
                <View style={{ paddingTop: 5 }} />
@@ -133,12 +149,9 @@ const Predict = () => {
                     <RNPickerSelect
                          placeholder={{
                               label: 'เลือกเดือนที่ปลูก',
-                              value: null,
+                              value: '',
                          }}
-                         onValueChange={(month) =>
-                              console.log('month ' + month)
-                         }
-                         // style={styles.pickerFM}
+                         onValueChange={(month) => setMonth(month)}
                          style={{ inputAndroid: { color: 'black' } }}
                          items={[
                               { label: 'มกราคม', value: '1' },
@@ -154,9 +167,23 @@ const Predict = () => {
                               { label: 'พฤศจิกายน', value: '11' },
                               { label: 'ธันวาคม', value: '12' },
                          ]}
-                         // pickerProps={{
-                         //      style: { overflow: 'hidden' },
-                         // }}
+                    />
+               </View>
+               <View style={{ paddingTop: 5 }} />
+               <View style={styles.picker}>
+                    <Text style={{ fontSize: 20 }}>เก็บเกี่ยว</Text>
+                    <RNPickerSelect
+                         placeholder={{
+                              label: 'ระยะเวลาในการเก็บเกี่ยว',
+                              value: '',
+                         }}
+                         onValueChange={(harvest) => setHarvest(harvest)}
+                         style={{ inputAndroid: { color: 'black' } }}
+                         items={[
+                              { label: '1 เดือน', value: '30' },
+                              { label: '2 เดือน', value: '60' },
+                              { label: '3 เดือน', value: '90' },
+                         ]}
                     />
                </View>
                <View style={{ paddingTop: 10 }} />
@@ -170,7 +197,7 @@ const Predict = () => {
                     buttonStyle={{
                          backgroundColor: '#549a00',
                     }}
-                    onPress={() => navigation.navigate('Resgister')}
+                    onPress={() => predict()}
                />
           </View>
      );

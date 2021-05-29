@@ -5,9 +5,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Header from './src/header/Header';
-import SingIn from './src/component/SingIn';
+import News from './src/component/News';
 import SingUp from './src/component/SingUp';
 import Resgister from './src/component/Resgister';
+import Predict2 from './src/component/Predict2';
+import Predict3 from './src/component/Predict3';
 
 function App() {
      return (
@@ -34,7 +36,17 @@ function MyStack() {
                     component={Resgister}
                     options={{ title: 'สมัครสมาชิก' }}
                />
-               <Stack.Screen name="SingIn" component={SingIn} />
+               <Stack.Screen name="News" component={News} />
+               <Stack.Screen
+                    name="Predict2"
+                    component={Predict2}
+                    options={{ title: 'ผลการทำนาย' }}
+               />
+               <Stack.Screen
+                    name="Predict3"
+                    component={Predict3}
+                    options={{ title: 'การคาดคะเนรายได้' }}
+               />
           </Stack.Navigator>
      );
 }

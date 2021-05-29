@@ -56,19 +56,6 @@ function Home() {
      );
 }
 
-const pre = () => {
-     var test_dataset = [
-          [0.9, 0.9, 0.9],
-          [1.1, 1.1, 1.1],
-          [1.1, 1.1, 1.2],
-          [1.2, 1.2, 1.2],
-     ];
-
-     var ans = knn.predict(test_dataset);
-
-     console.log(ans);
-};
-
 const styles = StyleSheet.create({
      container: {
           flex: 1,
