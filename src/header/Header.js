@@ -12,7 +12,7 @@ const PriceRoute = () => <Price />;
 
 const PredictRoute = () => <Predict />;
 
-const RecentsRoute = () => <Predict3 />;
+const RecentsRoute = () => <News />;
 
 const NewsRoute = () => <News />;
 

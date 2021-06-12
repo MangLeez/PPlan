@@ -9,58 +9,192 @@ import {
 } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import RNPickerSelect from 'react-native-picker-select';
+import { NavigationContainer } from '@react-navigation/native';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { Rect, Text as TextSVG, Svg } from 'react-native-svg';
 
-const SingIn = () => {
+export default function SingIn() {
+     return <MyTabs />;
+}
+
+const styles = StyleSheet.create({
+     container: {
+          flex: 1,
+          paddingTop: 40,
+          alignItems: 'center',
+     },
+     picker: {
+          fontSize: 300,
+          width: '80%',
+          paddingHorizontal: 10,
+          marginLeft: '10%',
+          // paddingVertical: 8,
+          borderWidth: 3,
+          borderColor: 'gold',
+          borderRadius: 80,
+          color: 'black',
+          // paddingRight: 30, // to ensure the text is never behind the icon
+     },
+     button: {
+          paddingTop: '3%',
+          width: '50%',
+          marginLeft: '25%',
+     },
+});
+
+const Tab = createMaterialTopTabNavigator();
+
+function MyTabs() {
+     return (
+          <Tab.Navigator style={{ marginTop: '5%' }}>
+               <Tab.Screen
+                    name="Graph"
+                    component={priceGraph}
+                    options={{ tabBarLabel: 'Graph' }}
+               />
+               <Tab.Screen
+                    name="Table"
+                    component={priceTable}
+                    options={{ tabBarLabel: 'Table' }}
+               />
+          </Tab.Navigator>
+     );
+}
+
+function priceGraph() {
      const [plant, setPlant] = useState('');
-     const [month, setMonth] = useState('');
-     const [year, setYear] = useState('');
+     const [year, setYear] = useState(null);
+     const [month, setMonth] = useState(null);
+     const [price, setPrice] = useState([]);
+     var [chartDataX, setChartDataX] = useState([]);
+     var [chartDataY, setChartDataY] = useState([]);
+     let [tooltipPos, setTooltipPos] = useState({
+          x: 0,
+          y: 0,
+          visible: false,
+          value: 0,
+     });
 
-     const getPrice = async () => {
+     let dataX = [];
+     let dataY = [];
+
+     const [data, setData] = useState({
+          datasets: [
+               {
+                    data: [20, 45, 28, 80, 99, 43],
+               },
+          ],
+     });
+
+     var getPrice = async () => {
           if (plant === '') {
                alert('โปรดเลือกสินค้าเกษตร');
           } else {
-               await console.log(plant);
-               // await fetch(`http://192.168.0.106:3032/getPrice/${plant}`, {
-               //      method: 'GET',
-               // })
-               //      .then((res) => res.json())
-               //      .then((json) => (plant = json));
+               if (!year && month) {
+                    console.log('asdsadasd');
+
+                    await fetch(
+                         `http://192.168.0.106:3032/getPriceWithMonth/${plant}/${month}`,
+                         {
+                              method: 'GET',
+                         },
+                    )
+                         .then((res) => res.json())
+                         .then((res) => {
+                              setChartDataX({
+                                   chartDataX: res.dataX,
+                              });
+                              setData({
+                                   datasets: [
+                                        {
+                                             data: res.dataY,
+                                        },
+                                   ],
+                              });
+                         })
+                         .catch((error) => {});
+               }
+               if (!month && year) {
+                    await fetch(
+                         `http://192.168.0.106:3032/getPriceWithYear/${plant}/${year}`,
+                         {
+                              method: 'GET',
+                         },
+                    )
+                         .then((res) => res.json())
+                         .then((res) => {
+                              setChartDataX({
+                                   chartDataX: res.dataX,
+                              });
+                              setData({
+                                   datasets: [
+                                        {
+                                             data: res.dataY,
+                                        },
+                                   ],
+                              });
+                         })
+                         .catch((error) => {});
+               }
+               if (year && month) {
+                    await fetch(
+                         `http://192.168.0.106:3032/getPriceAll/${plant}/${year}/${month}`,
+                         {
+                              method: 'GET',
+                         },
+                    )
+                         .then((res) => res.json())
+                         .then((res) => {
+                              setChartDataX({
+                                   chartDataX: res.dataX,
+                              });
+                              setData({
+                                   datasets: [
+                                        {
+                                             data: res.dataY,
+                                        },
+                                   ],
+                              });
+                         })
+                         .catch((error) => {});
+               }
+               if (plant && !year && !month) {
+                    await fetch(`http://192.168.0.106:3032/getPrice/${plant}`, {
+                         method: 'GET',
+                    })
+                         .then((res) => res.json())
+                         .then((res) => {
+                              setChartDataX({
+                                   chartDataX: res.dataX,
+                              });
+                              setData({
+                                   datasets: [
+                                        {
+                                             data: res.dataY,
+                                        },
+                                   ],
+                              });
+                         })
+                         .catch((error) => {});
+               }
           }
      };
 
      return (
-          // <View style={styles.container}>
-          //      <Text>Price </Text>
-          // </View>
-
-          <View style={{ marginTop: '10%' }}>
+          <View style={{ marginTop: '1%' }}>
                <LineChart
                     data={{
-                         labels: [
-                              'January',
-                              'February',
-                              'March',
-                              'April',
-                              'May',
-                              'June',
-                         ],
+                         labels: chartDataX.chartDataX,
                          datasets: [
                               {
-                                   data: [
-                                        Math.random() * 100,
-                                        Math.random() * 100,
-                                        Math.random() * 100,
-                                        Math.random() * 100,
-                                        Math.random() * 100,
-                                        Math.random() * 100,
-                                   ],
+                                   data: data.datasets[0].data,
+                                   // data: [20, 45, 28, 80, 99, 43],
                               },
                          ],
                     }}
                     width={Dimensions.get('window').width} // from react-native
                     height={220}
-                    yAxisLabel="$"
-                    yAxisSuffix="k"
+                    yAxisLabel="฿"
                     yAxisInterval={1} // optional, defaults to 1
                     chartConfig={{
                          backgroundColor: '#e26a00',
@@ -84,6 +218,51 @@ const SingIn = () => {
                     style={{
                          marginVertical: 8,
                          borderRadius: 16,
+                    }}
+                    decorator={() => {
+                         return tooltipPos.visible ? (
+                              <View>
+                                   <Svg>
+                                        <Rect
+                                             x={tooltipPos.x - 15}
+                                             y={tooltipPos.y + 10}
+                                             width="48"
+                                             height="30"
+                                             fill="black"
+                                        />
+                                        <TextSVG
+                                             x={tooltipPos.x + 8}
+                                             y={tooltipPos.y + 30}
+                                             fill="white"
+                                             fontSize="16"
+                                             fontWeight="bold"
+                                             textAnchor="middle"
+                                        >
+                                             {tooltipPos.value}
+                                        </TextSVG>
+                                   </Svg>
+                              </View>
+                         ) : null;
+                    }}
+                    onDataPointClick={(data) => {
+                         let isSamePoint =
+                              tooltipPos.x === data.x &&
+                              tooltipPos.y === data.y;
+
+                         isSamePoint
+                              ? setTooltipPos((previousState) => {
+                                     return {
+                                          ...previousState,
+                                          value: data.value,
+                                          visible: !previousState.visible,
+                                     };
+                                })
+                              : setTooltipPos({
+                                     x: data.x,
+                                     value: data.value,
+                                     y: data.y,
+                                     visible: true,
+                                });
                     }}
                />
 
@@ -116,20 +295,22 @@ const SingIn = () => {
 
                <View style={styles.picker}>
                     <RNPickerSelect
-                         placeholder={{ label: 'เลือกปี', value: '' }}
+                         placeholder={{ label: 'เลือกปี', value: null }}
                          onValueChange={(year) => setYear(year)}
                          style={{ inputAndroid: { color: 'black' } }}
                          items={[
-                              { label: '2564', value: '1' },
-                              { label: '2563', value: '2' },
-                              { label: '2562', value: '3' },
+                              { label: '2564', value: '2021' },
+                              { label: '2563', value: '2020' },
+                              { label: '2562', value: '2019' },
+                              { label: '2561', value: '2018' },
+                              { label: '2560', value: '2017' },
                          ]}
                     />
                </View>
                <View style={{ paddingTop: '2%' }} />
                <View style={styles.picker}>
                     <RNPickerSelect
-                         placeholder={{ label: 'เลือกเดือน', value: '' }}
+                         placeholder={{ label: 'เลือกเดือน', value: null }}
                          onValueChange={(month) => setMonth(month)}
                          style={{ inputAndroid: { color: 'black' } }}
                          items={[
@@ -164,31 +345,18 @@ const SingIn = () => {
                </View>
           </View>
      );
-};
+}
 
-const styles = StyleSheet.create({
-     container: {
-          flex: 1,
-          paddingTop: 40,
-          alignItems: 'center',
-     },
-     picker: {
-          fontSize: 300,
-          width: '80%',
-          paddingHorizontal: 10,
-          marginLeft: '10%',
-          // paddingVertical: 8,
-          borderWidth: 3,
-          borderColor: 'gold',
-          borderRadius: 80,
-          color: 'black',
-          // paddingRight: 30, // to ensure the text is never behind the icon
-     },
-     button: {
-          paddingTop: '3%',
-          width: '50%',
-          marginLeft: '25%',
-     },
-});
-
-export default SingIn;
+function priceTable() {
+     return (
+          <View
+               style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+               }}
+          >
+               <Text>Settings!</Text>
+          </View>
+     );
+}

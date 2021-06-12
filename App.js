@@ -3,6 +3,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import Header from './src/header/Header';
 import News from './src/component/News';
@@ -10,8 +11,11 @@ import SingUp from './src/component/SingUp';
 import Resgister from './src/component/Resgister';
 import Predict2 from './src/component/Predict2';
 import Predict3 from './src/component/Predict3';
+import Home from './src/component/Home';
+
 
 function App() {
+    
      return (
           <NavigationContainer>
                <MyStack />
@@ -37,6 +41,7 @@ function MyStack() {
                     options={{ title: 'สมัครสมาชิก' }}
                />
                <Stack.Screen name="News" component={News} />
+               <Stack.Screen name="Home" component={Home} />
                <Stack.Screen
                     name="Predict2"
                     component={Predict2}
@@ -54,7 +59,7 @@ function MyStack() {
 const styles = StyleSheet.create({
      container: {
           flex: 1,
-     },
+     }, 
 });
 
 export default App;

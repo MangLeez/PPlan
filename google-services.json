@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "169989652986",
+    "project_id": "pplan-1e7ec",
+    "storage_bucket": "pplan-1e7ec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:169989652986:android:b1eaf32a7ae52ecd306443",
+        "android_client_info": {
+          "package_name": "com.hcu.pplan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "169989652986-1ngk6k6ot8urp8jjjvtqfs8ckriik3rs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_Dk579l5Y3nLa5XaQGszQsw0OsVITR4w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "169989652986-1ngk6k6ot8urp8jjjvtqfs8ckriik3rs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

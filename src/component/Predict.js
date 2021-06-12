@@ -6,6 +6,8 @@ import {
      StyleSheet,
      TouchableOpacity,
      ScrollView,
+     AsyncStorage,
+     RefreshControl,
 } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { Dialog, Portal } from 'react-native-paper';
@@ -13,6 +15,10 @@ import RNPickerSelect from 'react-native-picker-select';
 import { Tooltip } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { useNavigation } from '@react-navigation/native';
+
+const wait = (timeout) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+}
 
 const Predict = () => {
      const navigation = useNavigation();
@@ -22,7 +28,32 @@ const Predict = () => {
      const [water, setWater] = useState('');
      const [month, setMonth] = useState('');
      const [harvest, setHarvest] = useState('');
+     const [islogin, setIslogin] = useState(false);
      var plant = [];
+
+        const [refreshing, setRefreshing] = React.useState(false);
+
+  const onRefresh = React.useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
+
+
+     const checklogin = async () => {
+          try {
+              const login = await AsyncStorage.getItem('username');
+               if(!login){
+               alert('โปรดเข้าสู่ระบบ');
+                    setIslogin(false);
+               }
+               if(login){
+                    setIslogin(true);
+               }
+          } catch (e) {
+               // saving error
+          }
+     }
 
      const predict = async () => {
           if (
@@ -51,6 +82,9 @@ const Predict = () => {
           }
      };
 
+     checklogin();
+
+if(islogin){
      return (
           <View style={styles.container}>
                <View style={styles.picker}>
@@ -180,9 +214,9 @@ const Predict = () => {
                          onValueChange={(harvest) => setHarvest(harvest)}
                          style={{ inputAndroid: { color: 'black' } }}
                          items={[
-                              { label: '1 เดือน', value: '30' },
-                              { label: '2 เดือน', value: '60' },
-                              { label: '3 เดือน', value: '90' },
+                              { label: '1 เดือน', value: '1' },
+                              { label: '2 เดือน', value: '2' },
+                              { label: '3 เดือน', value: '3' },
                          ]}
                     />
                </View>
@@ -201,6 +235,31 @@ const Predict = () => {
                />
           </View>
      );
+} else {
+     return (
+          <ScrollView
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+          />
+        }
+      >
+          <View
+               style={{
+                    flex: 1,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginTop:'90%',
+               }}
+          >
+               <Text style={{ fontSize:20}}>เข้าสู่ระบบก่อนใช้งาน</Text>
+               <Text style={{ fontSize:15}}>ลากลงเพื่อรีเฟรชหน้า!</Text>
+          </View>
+              </ScrollView>
+            
+     );
+}
 };
 
 const styles = StyleSheet.create({

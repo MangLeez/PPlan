@@ -9,7 +9,7 @@ function Predict2({ route }) {
      const { name } = route.params;
      const { month } = route.params;
      const { harvest } = route.params;
-     const [plant, setPlant] = useState([]);
+     let [plant, setPlant] = useState([]);
 
      const getPlant = async () => {
           if (name === '' || month === '' || harvest === '') {
@@ -83,6 +83,7 @@ function Predict2({ route }) {
                                    onPress={() =>
                                         navigation.navigate('Predict3', {
                                              plant: plant[0],
+                                             harvest: harvest,
                                         })
                                    }
                               />
@@ -117,6 +118,7 @@ function Predict2({ route }) {
                                    onPress={() =>
                                         navigation.navigate('Predict3', {
                                              plant: plant[1],
+                                             harvest: harvest,
                                         })
                                    }
                               />
@@ -151,6 +153,7 @@ function Predict2({ route }) {
                                    onPress={() =>
                                         navigation.navigate('Predict3', {
                                              plant: plant[2],
+                                             harvest: harvest,
                                         })
                                    }
                               />
@@ -185,6 +188,7 @@ function Predict2({ route }) {
                                    onPress={() =>
                                         navigation.navigate('Predict3', {
                                              plant: plant[3],
+                                             harvest: harvest,
                                         })
                                    }
                               />
@@ -219,6 +223,7 @@ function Predict2({ route }) {
                                    onPress={() =>
                                         navigation.navigate('Predict3', {
                                              plant: plant[4],
+                                             harvest: harvest,
                                         })
                                    }
                               />
