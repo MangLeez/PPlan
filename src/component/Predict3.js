@@ -105,21 +105,12 @@ const Predict3 = ({ route }) => {
                               .then((res) => res.json())
                               .then((json) => (allBill = json));
 
-                         console.log(allBill);
+                         // console.log(allBill);
 
-                         allBill[0] = allBill[0].toFixed(2);
-                         allBill[1] = allBill[1].toFixed(2);
-                         allBill[2] = allBill[2].toFixed(2);
-                         allBill[3] = allBill[3].toFixed(2);
-                         allBill[5] = allBill[5].toFixed(2);
-                         allBill[6] = allBill[6].toFixed(2);
-                         allBill[7] = allBill[7].toFixed(2);
-                         allBill[8] = allBill[8].toFixed(2);
-                         allBill[9] = allBill[9].toFixed(2);
-                         allBill[10] = allBill[10].toFixed(2);
-                         allBill[11] = allBill[11].toFixed(2);
-                         allBill[12] = allBill[12].toFixed(2);
-                         allBill[13] = allBill[13].toFixed(2);
+                         for (let index = 0; index < 14; index++) {
+                              allBill[index] = allBill[index].toFixed(2);
+                              
+                         }
 
                          setProfit1(allBill[0]);
                          setProfit2(allBill[1]);
@@ -456,7 +447,7 @@ const Predict3 = ({ route }) => {
                                    <Text>รายได้ทั้งหมด</Text>
                                    <View style={{ marginLeft: '20%' }} />
                                    <Text style={{ color: 'green' }}>
-                                        {income1}-{income2}
+                                        {income2}-{income1}
                                    </Text>
                                    <Text>{'  '}บาท</Text>
                               </View>
@@ -532,7 +523,7 @@ const Predict3 = ({ route }) => {
                               <View style={{ flexDirection: 'row' }}>
                                    <View style={{ marginLeft: '5%' }} />
                                    <Text>ค่าแรงงาน:</Text>
-                                   <View style={{ marginLeft: '61%' }} />
+                                   <View style={{ marginLeft: '57%' }} />
                                    <Text style={{ color: 'black' }}>
                                         {workCost}
                                    </Text>
@@ -551,7 +542,7 @@ const Predict3 = ({ route }) => {
                                    <Text>รายได้สุทธิเฉลี่ยสุทธิ:</Text>
                                    <View style={{ marginLeft: '9%' }} />
                                    <Text style={{ color: 'green' }}>
-                                        {profit1}-{profit2}
+                                        {profit2}-{profit1}
                                    </Text>
                                    <Text>{'  '}บาท</Text>
                               </View>

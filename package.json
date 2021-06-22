@@ -38,6 +38,7 @@
     "react-native-screens": "~2.15.2",
     "react-native-svg": "^12.1.1",
     "react-native-tab-view": "^2.16.0",
+    "react-native-table-component": "^1.2.1",
     "react-native-tip": "^0.0.2",
     "react-native-vector-icons": "^8.1.0",
     "react-native-web": "~0.13.12",

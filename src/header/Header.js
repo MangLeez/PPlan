@@ -12,7 +12,7 @@ const PriceRoute = () => <Price />;
 
 const PredictRoute = () => <Predict />;
 
-const RecentsRoute = () => <News />;
+// const RecentsRoute = () => <News />;
 
 const NewsRoute = () => <News />;
 
@@ -37,7 +37,7 @@ const Header = () => {
                icon: 'newspaper-variant-outline',
                color: 'red',
           },
-          { key: 'recents', title: 'Recents', icon: 'history' },
+          // { key: 'recents', title: 'Recents', icon: 'history' },
      ]);
 
      const renderScene = BottomNavigation.SceneMap({
@@ -45,7 +45,7 @@ const Header = () => {
           Price: PriceRoute,
           Predict: PredictRoute,
           News: NewsRoute,
-          recents: RecentsRoute,
+          // recents: RecentsRoute,
      });
 
      return (

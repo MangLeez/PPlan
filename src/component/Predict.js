@@ -124,7 +124,6 @@ if(islogin){
                               { label: 'แดดเต็มวัน', value: '1' },
                               { label: 'แดดครึ่งวัน', value: '2' },
                               { label: 'แดดรำไร', value: '3' },
-                              { label: 'ร่มสนิท', value: '4' },
                          ]}
                     />
                </View>
